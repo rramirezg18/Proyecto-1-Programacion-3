@@ -79,7 +79,31 @@ public class ConstruirArbolExpresion implements Metodos {
             default:
                 return 0;
         }
-    }        
+    }
+    
+        private void mostrarInorden(Nodo nodo) {
+        if (nodo != null) {
+            mostrarInorden(nodo.getHijoIzquierdo());
+            System.out.print(nodo.getDato() + " ");
+            mostrarInorden(nodo.getHijoDerecho());
+        }
+    }
+    
+    private void mostrarPreorden(Nodo nodo) {
+        if (nodo != null) {
+            System.out.print(nodo.getDato() + " ");
+            mostrarPreorden(nodo.getHijoIzquierdo());
+            mostrarPreorden(nodo.getHijoDerecho());
+        }
+    }
+ 
+    private void mostrarPosorden(Nodo nodo) {
+        if (nodo != null) {
+            mostrarPosorden(nodo.getHijoIzquierdo());
+            mostrarPosorden(nodo.getHijoDerecho());
+            System.out.print(nodo.getDato() + " ");
+        }
+    }
         
     @Override
     public void mostrarInOrden() {
