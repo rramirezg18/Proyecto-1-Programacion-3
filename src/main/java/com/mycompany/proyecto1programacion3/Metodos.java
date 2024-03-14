@@ -10,4 +10,8 @@ package com.mycompany.proyecto1programacion3;
  */
 public interface Metodos {
     
+    void mostrarInOrden();
+    void mostrarPreOrden();
+    void mostrarPosOrden();
+    
 }
