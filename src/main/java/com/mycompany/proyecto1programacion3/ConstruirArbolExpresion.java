@@ -4,9 +4,12 @@
  */
 package com.mycompany.proyecto1programacion3;
 
-/**
- *
- * @author ianto
+/*Proyecto 1 - Arbol De Expresion
+ * El proyecto consiste en ingresar una expresion matematica a+b(c-d)-e y generar al arbol de expresion 
+ * sus reccoridos y la notacion polaca como respuesta
+ * Roberto Antonio Ramírez Gómez	7690-22-12700
+ * Jean Klaus Castañeda Santos		7690-22-892		
+ * Jonathan Joel Chan Cuellar		7690-22-1805
  */
 import java.util.Stack;
 public class ConstruirArbolExpresion implements Metodos {
@@ -17,7 +20,7 @@ public class ConstruirArbolExpresion implements Metodos {
 		this.inicio = null;
 	}
         
-  public void construirArbol(String expresionMatematica) {
+    public void construirArbol(String expresionMatematica) {
         String expresionPosfija = convertirAPosfija(expresionMatematica);
         Stack<Nodo> pila = new Stack<>();
         for (char caracter : expresionPosfija.toCharArray()) {
@@ -81,7 +84,7 @@ public class ConstruirArbolExpresion implements Metodos {
         }
     }
     
-        private void mostrarInorden(Nodo nodo) {
+    private void mostrarInorden(Nodo nodo) {
         if (nodo != null) {
             mostrarInorden(nodo.getHijoIzquierdo());
             System.out.print(nodo.getDato() + " ");
@@ -107,16 +110,19 @@ public class ConstruirArbolExpresion implements Metodos {
         
     @Override
     public void mostrarInOrden() {
+        mostrarInorden(inicio);
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mostrarPreOrden() {
+        mostrarPreorden(inicio);
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mostrarPosOrden() {
+        mostrarPosorden(inicio);
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

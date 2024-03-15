@@ -8,21 +8,21 @@ package com.mycompany.proyecto1programacion3;
  *
  * @author ianto
  */
+import java.util.*;
 public class Proyecto1Programacion3 {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
     
-    private static boolean contieneVariables(String expresion) {
-        for (char c : expresion.toCharArray()) {
-            if (Character.isLetter(c)) {
+    private static boolean sonVariables(String expresion) {
+        for (char caracter : expresion.toCharArray()) {
+            if (Character.isLetter(caracter)) {
                 return true;
             }
         }
         return false;
     }
- 
     // Método para obtener todas las variables de la expresión
     private static char[] obtenerVariables(String expresion) {
         String variables = expresion.replaceAll("[^a-z]", "");
