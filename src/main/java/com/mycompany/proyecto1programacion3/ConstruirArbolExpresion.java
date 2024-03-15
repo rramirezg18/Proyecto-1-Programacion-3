@@ -14,7 +14,7 @@ package com.mycompany.proyecto1programacion3;
 import java.util.Stack;
 public class ConstruirArbolExpresion implements Metodos {
     
-    public Nodo inicio; //variable de tipo nodo que representara la raiz del árbol
+    public Nodo inicio; //variable de tipo nodo que representara la raiz del árbol osea donde inicia
 	
 	public ConstruirArbolExpresion() {
 		this.inicio = null;
@@ -61,13 +61,13 @@ public class ConstruirArbolExpresion implements Metodos {
                 operadores.push(caracter); // Agrega el operador actual a la pila.
             }
         }
-        while (!operadores.isEmpty()) { // Desapila los operadores restantes y los agrega a la expresión posfija.
+        while (!operadores.isEmpty()) { // Desapila los operadores restantes y los agrega a la expresión posfija la cul es la inversa polaca
             posfija.append(operadores.pop());
         }
         return posfija.toString(); // Devuelve la expresión posfija como una cadena.
     }
     
-    private int jerarquia(char operador) { // metodo para determinar la precedencia de un operador.
+    private int jerarquia(char operador) { // metodo para determinar la jerarquia de un operador agrupando los por niveles .
         switch (operador) {
             case '+':
             case '-':
@@ -77,7 +77,7 @@ public class ConstruirArbolExpresion implements Metodos {
              
                 return 2;
             case '^':
-            //case '√': No funciona como simbolo de raiz
+            //case '√': No funciona como simbolo de raiz F :c
                 return 3;
             default:
                 return 0;
@@ -111,19 +111,52 @@ public class ConstruirArbolExpresion implements Metodos {
     @Override
     public void mostrarInOrden() {
         mostrarInorden(inicio);
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
     }
 
     @Override
     public void mostrarPreOrden() {
         mostrarPreorden(inicio);
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
     }
 
     @Override
     public void mostrarPosOrden() {
         mostrarPosorden(inicio);
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
     }
-    
+    public double resolverExpresion() {
+        return resolverExpresion(inicio);
+    }
+
+    private double resolverExpresion(Nodo nodo) {
+        if (nodo == null)
+            return 0;
+
+        if (Character.isDigit(nodo.getDato().charAt(0))) { // Si el nodo es un número, lo convierte a double y lo retorna.
+            return Double.parseDouble(nodo.getDato());
+        } else { // Si el nodo es un operador, realiza la operación correspondiente.
+            double izquierdo = resolverExpresion(nodo.getHijoIzquierdo());
+            double derecho = resolverExpresion(nodo.getHijoDerecho());
+
+            switch (nodo.getDato().charAt(0)) {
+                case '+':
+                    return izquierdo + derecho;
+                case '-':
+                    return izquierdo - derecho;
+                case '*':
+                    return izquierdo * derecho;
+                case '/':
+                    if (derecho != 0) {
+                        return izquierdo / derecho;
+                    } else {
+                        throw new ArithmeticException("División por cero no permitida");
+                    }
+                case '^':
+                    return Math.pow(izquierdo, derecho);
+                default:
+                    throw new IllegalArgumentException("Operador no válido: " + nodo.getDato());
+            }
+        }
+    }
 }
