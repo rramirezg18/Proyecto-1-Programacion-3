@@ -1,4 +1,4 @@
-# PROYECTO 1 - PROGRAMACION III
+# `PROYECTO 1 - PROGRAMACION III`
 **Proyecto desarrollado por:** 
 
 Roberto Antonio Ramirez Gomez    7690-22-12700
@@ -7,24 +7,23 @@ Jean Klaus Castañeda Santos      7690-22-892
 
 Jonathan Joel Chan Cuellar       7690-22-1805
 ___
-[ENLACE DEL REPOSITORIO EN GITHUB](https://github.com/rramirezg18/Proyecto-1-Programacion-3 "REPOSITORIO DEL PROYECTO")
+[**ENLACE DEL REPOSITORIO EN GITHUB**](https://github.com/rramirezg18/Proyecto-1-Programacion-3 "REPOSITORIO DEL PROYECTO")
 ___
 
 ## Descripcion Del Proyecto:
    
-El presente proyecto tiene consiste en realizar un **algoritmo** utilizando el lenguaje de programacion *Java* el cual debera solicitar una expresion matematica que puede incluir *sumas, restas, multiplicaciones, divisiones, prencias y raices* **a+b-(c-b)+e** y crear el arbol de expresion. Debera mostrar los recorridos del arbol y el evaluar el reccorrido postorden como notacion polaca. 
+El presente proyecto tiene consiste en realizar un **algoritmo** utilizando el lenguaje de programación *Java* el cual debera solicitar una expresion matematica que puede incluir *sumas, restas, multiplicaciones, divisiones, prencias y raices* **a+b-(c-b)+e** y crear el árbol de expresión. Deberá mostrar los recorridos del órbol y el evaluar el reccorrido postorden como notación polaca es decir resolver la expresión matematica ingresada. 
 
 **El proyecto incluira las siguientes clases**
 * Proyecto1_Expresion.java
 * Nodo.java
 * ConstruccionArbol.java
 * Grafica
+* Interface **Metodos**
 
-Y con la interface **Metodos**
 
-
-Para el desarrollo del proyecto crearemos una clase llamada **Nodo** la cual incluira los siguientes atributosn y variables del mismo tipo de la clase:
-*String* dato es el dato se ingresara para cada nodo o sub arbol en el arbol de expresion
+Para el desarrollo del proyecto crearemos una clase llamada **Nodo** la cual incluira los siguientes atributos y variables del mismo tipo de la clase:
+*String dato es el dato se ingresara para cada nodo o sub arbol en el arbol de expresion
 *hijoDerecho e HijoIzquierdo funcionarán como apuntadores en el árbol de expresión
 
 ```java
@@ -183,51 +182,142 @@ public void construirArbol(String expresionMatematica) {
 
 funcion para mostrar en pantalla el recorrido **INORDEN**
 ```java
-private void mostrarInorden(Nodo nodo) {
+//IRD
+    private void recorrerInorden(Nodo nodo) {
         if (nodo != null) {
-            mostrarInorden(nodo.getHijoIzquierdo());
+            recorrerInorden(nodo.getHijoIzquierdo());
             System.out.print(nodo.getDato() + " ");
-            mostrarInorden(nodo.getHijoDerecho());
+            recorrerInorden(nodo.getHijoDerecho());
         }
     }
 ```
 
 funcion para mostrar en pantalla el recorrido **PREORDEN**
 ```java
-private void mostrarPreorden(Nodo nodo) {
+  //RID
+    private void recorrerPreorden(Nodo nodo) {
         if (nodo != null) {
             System.out.print(nodo.getDato() + " ");
-            mostrarPreorden(nodo.getHijoIzquierdo());
-            mostrarPreorden(nodo.getHijoDerecho());
+            recorrerPreorden(nodo.getHijoIzquierdo());
+            recorrerPreorden(nodo.getHijoDerecho());
         }
     }
 ```
 
+
 funcion para mostrar en pantalla el recorrido **POSORDEN**
 ```java
-    private void mostrarPosorden(Nodo nodo) {
+//IDR
+    private void recorrerPosorden(Nodo nodo) {
         if (nodo != null) {
-            mostrarPosorden(nodo.getHijoIzquierdo());
-            mostrarPosorden(nodo.getHijoDerecho());
+            recorrerPosorden(nodo.getHijoIzquierdo());
+            recorrerPosorden(nodo.getHijoDerecho());
             System.out.print(nodo.getDato() + " ");
         }
-    }  
+    }
 ```
 
 
 Metodos de la interfaz para mostrar los el resultado de las funciones en pantalla
 
 ```java
+    @Override//IRD
+    public void mostrarInOrden() {
+        recorrerInorden(inicio);
 
+    }
+
+    @Override//RID
+    public void mostrarPreOrden() {
+        recorrerPreorden(inicio);
+
+    }
+
+    @Override//IDR
+    public void mostrarPosOrden() {
+        recorrerPosorden(inicio);
+
+    }
 ```
 
-En la clase **ArbolGrafico** Para poder realizar el árbol en forma gráfica utilizamos las librerias que nos permiten tener una interfaz gráfica en Java
+Creamos una funcion de tipo *double* para resolver la expresion matematica.
+```java
+    private double resolverExpresion(Nodo nodo) {
+        if (nodo == null)
+            return 0;
+
+        if (Character.isDigit(nodo.getDato().charAt(0))) { // Si el nodo es un número, lo convierte a double y lo retorna.
+            return Double.parseDouble(nodo.getDato());
+        } else { // Si el nodo es un operador, realiza la operación correspondiente.
+            double izquierdo = resolverExpresion(nodo.getHijoIzquierdo());
+            double derecho = resolverExpresion(nodo.getHijoDerecho());
+
+            switch (nodo.getDato().charAt(0)) {
+                case '+':
+                    return izquierdo + derecho;
+                case '-':
+                    return izquierdo - derecho;
+                case '*':
+                    return izquierdo * derecho;
+                case '/':
+                    if (derecho != 0) {
+                        return izquierdo / derecho;
+                    } else {
+                        throw new ArithmeticException("División por cero no permitida");
+                    }
+                case '^':
+                    return Math.pow(izquierdo, derecho);
+                default:
+                    throw new IllegalArgumentException("Operador no válido: " + nodo.getDato());
+            }
+        }
+    }
+```
+
+Creamos una clase **ArbolGrafico** Para poder realizar el árbol en forma gráfica utilizamos las librerias que nos permiten tener una interfaz gráfica en Java
 ```java
 import java.awt.*;
 import javax.swing.*;
 ```
 
+En la clase **main** del proyecto creamos se solicita al usuario que ingrese una expresión mátematica y para poder continuar con el proceso primero se verifica que
+la expresión sea valida, utilizamos la función de tipo *boolean validarExpresionMatematica* la cual retornara **true** si la expresión ingresada es correcta.
+```java
+private static boolean validarExpresionMatematica(String expresionMatematica) {
+        String caracteresValidos = "+-*/^(){}[]abcdefghijklmnopqrstuvwxyz0123456789";
+        for(char caracter : expresionMatematica.toCharArray()) {
+            if(caracteresValidos.indexOf(caracter) == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+```
 
+Para seguier con el proceso se identifica si la expresión ingresada contiene variables, por ejemplo: 2+a+3 -> la letra **a** es una variable al identificarla procede a pedir al usuario que ingrese su valor númerico o constante, para ello utilizamos la siguiente funciónes donde se identificán las variables y donde se le da valor a la variable.
+```java
+    private static boolean sonVariables(String expresion) {
+        for (char caracter : expresion.toCharArray()) {
+            if (Character.isLetter(caracter)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-![Imagen](imagen1.jpeg)
-![Imagen](imagen2.jpeg)
+    private static char[] obtenerVariables(String expresion) {
+        String variables = expresion.replaceAll("[^a-z]", "");
+        return variables.toCharArray();
+    }
+```
+### Resultados Del Algoritmo
+Al compilar el algoritmo nos muestra un menu con las opciones:
+1. Ingresar Expresion Matematica
+2. Generar Arbol De Expresion
+3. Recorridos
+4. Salir
+
+**Primero** se ingresa la expresion puede ser solo con numeros o con variables que posteriormente solicitara el valor constante. **Segundo** igresar la opcion 2 para generar el arbol y por ultimo ingresar a la opcion 3 para ver los recorridos y el resultado de la expresion matematica ingresada.
+
+![Imagen](imagen1.png)
+![Imagen](imagen2.png)
