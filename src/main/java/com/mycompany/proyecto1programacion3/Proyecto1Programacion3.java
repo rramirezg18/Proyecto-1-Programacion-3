@@ -4,9 +4,12 @@
 
 package com.mycompany.proyecto1programacion3;
 
-/**
- *
- * @author ianto
+/*Proyecto 1 - Arbol De Expresion
+ * El proyecto consiste en ingresar una expresion matematica a+b(c-d)-e y generar al arbol de expresion 
+ * sus reccoridos y la notacion polaca como respuesta
+ * Roberto Antonio Ramírez Gómez	7690-22-12700
+ * Jean Klaus Castañeda Santos		7690-22-892		
+ * Jonathan Joel Chan Cuellar		7690-22-1805
  */
 import java.util.*;
 public class Proyecto1Programacion3 {
@@ -22,7 +25,6 @@ public class Proyecto1Programacion3 {
             opcion = entrada.nextInt();
             switch (opcion) {
                 case 1:
-                    //aca solicitara la expresion
                     //ArbolExpresion arbol = new ArbolExpresion();
                     entrada.nextLine();
                     System.out.println("Ingrese una expresión matemática");
@@ -44,7 +46,6 @@ public class Proyecto1Programacion3 {
                     }
                     break;
                 case 2:
-                    //aca solo generara el arbol grafico
                     arbol.construirArbol(expresionMatematica);
                     ArbolGrafico.mostrarArbolExpresion(arbol);
                     System.out.println("Se ha generado el árbol de expresión.");
@@ -52,17 +53,15 @@ public class Proyecto1Programacion3 {
                 case 3:
                     arbol.construirArbol(expresionMatematica);
                     System.out.println("La expresion matemática con valores constantes es: " + expresionMatematica);
-                    System.out.println("\n");
-                    System.out.println("Inorden:");
+                    System.out.println("Inorden (IRD) ");
                     arbol.mostrarInOrden();
                     System.out.println();
-                    System.out.println("Preorden:");
+                    System.out.println("Preorden (RID) ");
                     arbol.mostrarPreOrden();
                     System.out.println();
-                    System.out.println("Posorden:");
+                    System.out.println("Posorden (IDR) ");
                     arbol.mostrarPosOrden();
                     System.out.println();
-                    //aca muestra los recorridos
                     arbol.construirArbol(expresionMatematica);
                     double resultado = arbol.resolverExpresion();
                     System.out.println("El resultado es: " + resultado);
@@ -72,8 +71,9 @@ public class Proyecto1Programacion3 {
             }
         }
     }
+    
     public static void Menu() {
-        System.out.println("\n\t MENU\n");
+        System.out.println("\n\t ARBOL DE EXPRESION\n");
         System.out.println("1.\t Ingresar expresión matemática");
         System.out.println("2.\t Generar árbol de expresión");
         System.out.println("3.\t Recorridos ");
@@ -81,7 +81,6 @@ public class Proyecto1Programacion3 {
         System.out.println("\nSeleccione una opción: ");
     }
 
-    
     private static boolean sonVariables(String expresion) {
         for (char caracter : expresion.toCharArray()) {
             if (Character.isLetter(caracter)) {
