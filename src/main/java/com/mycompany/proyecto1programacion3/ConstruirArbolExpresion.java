@@ -14,7 +14,7 @@ package com.mycompany.proyecto1programacion3;
 import java.util.Stack;
 public class ConstruirArbolExpresion implements Metodos {
     
-    public Nodo inicio; //variable de tipo nodo que representara la raiz del árbol osea donde inicia
+    public Nodo inicio; //variable de tipo nodo que representara la raiz del árbol es decir el inicia
 	
 	public ConstruirArbolExpresion() {
 		this.inicio = null;
@@ -83,48 +83,49 @@ public class ConstruirArbolExpresion implements Metodos {
                 return 0;
         }
     }
-    
-    private void mostrarInorden(Nodo nodo) {
+    //IRD
+    private void recorrerInorden(Nodo nodo) {
         if (nodo != null) {
-            mostrarInorden(nodo.getHijoIzquierdo());
+            recorrerInorden(nodo.getHijoIzquierdo());
             System.out.print(nodo.getDato() + " ");
-            mostrarInorden(nodo.getHijoDerecho());
+            recorrerInorden(nodo.getHijoDerecho());
         }
     }
-    
-    private void mostrarPreorden(Nodo nodo) {
+    //RID
+    private void recorrerPreorden(Nodo nodo) {
         if (nodo != null) {
             System.out.print(nodo.getDato() + " ");
-            mostrarPreorden(nodo.getHijoIzquierdo());
-            mostrarPreorden(nodo.getHijoDerecho());
+            recorrerPreorden(nodo.getHijoIzquierdo());
+            recorrerPreorden(nodo.getHijoDerecho());
         }
     }
- 
-    private void mostrarPosorden(Nodo nodo) {
+    //IDR
+    private void recorrerPosorden(Nodo nodo) {
         if (nodo != null) {
-            mostrarPosorden(nodo.getHijoIzquierdo());
-            mostrarPosorden(nodo.getHijoDerecho());
+            recorrerPosorden(nodo.getHijoIzquierdo());
+            recorrerPosorden(nodo.getHijoDerecho());
             System.out.print(nodo.getDato() + " ");
         }
     }
         
-    @Override
+    @Override//IRD
     public void mostrarInOrden() {
-        mostrarInorden(inicio);
+        recorrerInorden(inicio);
 
     }
 
-    @Override
+    @Override//RID
     public void mostrarPreOrden() {
-        mostrarPreorden(inicio);
+        recorrerPreorden(inicio);
 
     }
 
-    @Override
+    @Override//IDR
     public void mostrarPosOrden() {
-        mostrarPosorden(inicio);
+        recorrerPosorden(inicio);
 
     }
+    
     public double resolverExpresion() {
         return resolverExpresion(inicio);
     }
