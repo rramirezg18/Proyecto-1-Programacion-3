@@ -21,17 +21,17 @@ public class ConstruirArbolExpresion implements Metodos {
 	}
         
     public void construirArbol(String expresionMatematica) {
-        String expresionPosfija = convertirAPosfija(expresionMatematica);
-        Stack<Nodo> pila = new Stack<>();
-        for (char caracter : expresionPosfija.toCharArray()) {
-            if (Character.isLetterOrDigit(caracter)) { // Verifica si el caracter es una letra o un dígito.
+        String expresionPosfija = convertirAPosfija(expresionMatematica);//se llama al afuncion convertir a posfija
+        Stack<Nodo> pila = new Stack<>();//pila temporal apra almacenar los caracteres
+        for (char caracter : expresionPosfija.toCharArray()) {//itera la expresionposfija
+            if (Character.isLetterOrDigit(caracter)) { // Verifica si el caracter es un idgito y se añade a la pila
                 Nodo nodo = new Nodo(String.valueOf(caracter));
                 pila.push(nodo);
             } else {
-                Nodo nodoOperador = new Nodo(String.valueOf(caracter));
-                Nodo hijoDerecho = pila.pop();
-                Nodo hijoIzquierdo = pila.pop();
-                nodoOperador.setHijoIzquierdo(hijoIzquierdo);
+                Nodo nodoOperador = new Nodo(String.valueOf(caracter)); // operadores aqui se crea un nodo para operador
+                Nodo hijoDerecho = pila.pop();//Se retira un nodo y el primero que se retire va hacer el derecho
+                Nodo hijoIzquierdo = pila.pop();// el segundo va hacer el nodo izquierdo
+                nodoOperador.setHijoIzquierdo(hijoIzquierdo);//aqui se establecen
                 nodoOperador.setHijoDerecho(hijoDerecho);
                 pila.push(nodoOperador);
             }
@@ -45,7 +45,7 @@ public class ConstruirArbolExpresion implements Metodos {
         Stack<Character> operadores = new Stack<>(); // pila que almacena los operadores
         for (int i = 0; i < expresionMatematica.length(); i++) { // recorre la expresion matematica
             char caracter = expresionMatematica.charAt(i); // obtiene los caracter por caracter de la expresion matematica
-            if (Character.isDigit(caracter)) { 
+            if (Character.isDigit(caracter)) { //si caracter es digito
                 posfija.append(caracter); // Agrega el dígito directamente o variable a la expresión posfija que es la cadena polaca
             } else if (caracter == '(') { // Si es un paréntesis izquierdo, lo apila en la pila de operadores hasta encontrar su correspondiente dreecho.
                 operadores.push(caracter);
@@ -135,7 +135,7 @@ public class ConstruirArbolExpresion implements Metodos {
 
         if (Character.isDigit(nodo.getDato().charAt(0))) { // Si el nodo es un número, lo convierte a double y lo retorna.
             return Double.parseDouble(nodo.getDato());
-        } else { // Si el nodo es un operador, realiza la operación correspondiente.
+        } else { // Si el nodo es un numero, realiza la operación correspondiente.
             double izquierdo = resolverExpresion(nodo.getHijoIzquierdo());
             double derecho = resolverExpresion(nodo.getHijoDerecho());
 

@@ -44,7 +44,7 @@ public class Proyecto1Programacion3 {
                     }
                     break;
                 case 2:
-                    //aca solo generara el arbol grafico
+
                     arbol.construirArbol(expresionMatematica);
                     ArbolGrafico.mostrarArbolExpresion(arbol);
                     System.out.println("Se ha generado el árbol de expresión.");
