@@ -15,10 +15,10 @@ ___
 El presente proyecto tiene consiste en realizar un **algoritmo** utilizando el lenguaje de programación *Java* el cual debera solicitar una expresion matematica que puede incluir *sumas, restas, multiplicaciones, divisiones, prencias y raices* **a+b-(c-b)+e** y crear el árbol de expresión. Deberá mostrar los recorridos del órbol y el evaluar el reccorrido postorden como notación polaca es decir resolver la expresión matematica ingresada. 
 
 **El proyecto incluira las siguientes clases**
-* Proyecto1_Expresion.java
+* Proyecto1Programacion3.java
 * Nodo.java
-* ConstruccionArbol.java
-* Grafica
+* ConstruirArbolExpresion.java
+* ArbolGrafico
 * Interface **Metodos**
 
 
