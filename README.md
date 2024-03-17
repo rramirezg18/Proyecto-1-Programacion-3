@@ -10,6 +10,8 @@ Jonathan Joel Chan Cuellar       7690-22-1805
 
 Roberto Antonio Ramirez Gomez    7690-22-12700
 
+Bryan Manuel Pineda Orozco       7690-16-8869
+
 ___
 [**ENLACE PARA VER LA DOCUMENTACION COMPLETA DEL PROYECTO**](https://github.com/rramirezg18/Proyecto-1-Programacion-3/blob/main/Documentacion.md "DOCUMENTACION DEL PROYECTO")
 ___
