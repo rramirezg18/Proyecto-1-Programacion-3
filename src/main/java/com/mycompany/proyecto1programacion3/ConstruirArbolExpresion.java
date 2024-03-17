@@ -10,6 +10,7 @@ package com.mycompany.proyecto1programacion3;
  * Roberto Antonio Ramírez Gómez	7690-22-12700
  * Jean Klaus Castañeda Santos		7690-22-892		
  * Jonathan Joel Chan Cuellar		7690-22-1805
+ * Bryan Manuel Pineda Orozco           7690-16-8869
  */
 import java.util.Stack;
 public class ConstruirArbolExpresion implements Metodos {
