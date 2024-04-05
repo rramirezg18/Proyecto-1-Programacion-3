@@ -45,6 +45,7 @@ public class Proyecto1Programacion3 {
                         }
                         System.out.println("La expresión matemática con valores constantes es: " + expresionMatematica);
                     }
+                    System.out.println("Expresión matemática ingresada correctamente");
                     break;
                 case 2:
                     arbol.construirArbol(expresionMatematica);
