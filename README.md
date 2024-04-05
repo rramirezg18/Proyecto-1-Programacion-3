@@ -30,13 +30,7 @@ El presente proyecto consiste en realizar un **algoritmo** utilizando el lenguaj
 **Se agrego actualizacion para el manejor correcto de números negativos
 ![Imagen](Imagen3.png)
 
-<iframe width="560" height="315" src="https://youtu.be/gLCnG2hS_AU" frameborder="0" allowfullscreen></iframe>
-
 [Video pueba de expresión con números negativos](https://youtu.be/gLCnG2hS_AU)
-
-[![Video pueba de expresión con números negativos](https://youtu.be/gLCnG2hS_AU)](https://youtu.be/gLCnG2hS_AU)
-
-
 
 ![Imagen](Imagen1.png)
 
