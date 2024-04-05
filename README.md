@@ -30,6 +30,8 @@ El presente proyecto consiste en realizar un **algoritmo** utilizando el lenguaj
 **Se agrego actualizacion para el manejor correcto de números negativos
 ![Imagen](Imagen3.png)
 
+[![](https://markdown-videos.deta.dev/youtube/gLCnG2hS_AU)](https://youtu.be/gLCnG2hS_AU)
+
 [Video pueba de expresión con números negativos](https://youtu.be/gLCnG2hS_AU)
 
 ![Imagen](Imagen1.png)
