@@ -30,7 +30,8 @@ El presente proyecto consiste en realizar un **algoritmo** utilizando el lenguaj
 # Video para pueba de manejo de números negativos
 **Se agrego actualizacion para el manejor correcto de números negativos
 
-[![Manejo correcto de números negativos ](https://youtu.be/gLCnG2hS_AU)]
+[![Texto alternativo](https://youtu.be/gLCnG2hS_AU)](https://youtu.be/gLCnG2hS_AU)
+
 
 
 ![Imagen](Imagen1.png)
