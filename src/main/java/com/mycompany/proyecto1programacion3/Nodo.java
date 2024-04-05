@@ -11,39 +11,38 @@ package com.mycompany.proyecto1programacion3;
  * Bryan Manuel Pineda Orozco           7690-16-8869
  */
 public class Nodo {
-	private String dato;
-	private Nodo hijoDerecho;
-	private Nodo hijoIzquierdo;
+    private String dato;
+    private Nodo hijoDerecho;
+    private Nodo hijoIzquierdo;
 	
-	//Constructor
-	public Nodo (String dato) {
-		this.dato = dato;
-		this.hijoDerecho = null;
-		this.hijoIzquierdo = null;
-	}
-	//Setters y Getters
-	public String getDato() {
-		return dato;
-	}
+    //Constructor
+    public Nodo (String dato) {
+        this.dato = dato;
+	this.hijoDerecho = null;
+	this.hijoIzquierdo = null;
+    }
+    //Setters y Getters
+    public String getDato() {
+        return dato;
+    }
 
-	public void setDato(String dato) {
-		this.dato = dato;
-	}
+    public void setDato(String dato) {
+	this.dato = dato;
+    }
 
-	public Nodo getHijoDerecho() {
-		return hijoDerecho;
-	}
+    public Nodo getHijoDerecho() {
+	return hijoDerecho;
+    }
 
-	public void setHijoDerecho(Nodo hijoDerecho) {
-		this.hijoDerecho = hijoDerecho;
-	}
+    public void setHijoDerecho(Nodo hijoDerecho) {
+           this.hijoDerecho = hijoDerecho;
+    }
 
-	public Nodo getHijoIzquierdo() {
-		return hijoIzquierdo;
-	}
+    public Nodo getHijoIzquierdo() {
+        return hijoIzquierdo;
+    }
 
-	public void setHijoIzquierdo(Nodo hijoIzquierdo) {
-		this.hijoIzquierdo = hijoIzquierdo;
-	}
-
+    public void setHijoIzquierdo(Nodo hijoIzquierdo) {
+	this.hijoIzquierdo = hijoIzquierdo;
+    }
 }

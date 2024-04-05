@@ -22,52 +22,92 @@ public class ConstruirArbolExpresion implements Metodos {
 	}
         
     public void construirArbol(String expresionMatematica) {
-        String expresionPosfija = convertirAPosfija(expresionMatematica);//se llama al afuncion convertir a posfija
-        Stack<Nodo> pila = new Stack<>();//pila temporal apra almacenar los caracteres
-        for (char caracter : expresionPosfija.toCharArray()) {//itera la expresionposfija
-            if (Character.isLetterOrDigit(caracter)) { // Verifica si el caracter es un idgito y se añade a la pila
-                Nodo nodo = new Nodo(String.valueOf(caracter));
-                pila.push(nodo);
-            } else {
-                Nodo nodoOperador = new Nodo(String.valueOf(caracter)); // operadores aqui se crea un nodo para operador
-                Nodo hijoDerecho = pila.pop();//Se retira un nodo y el primero que se retire va hacer el derecho
-                Nodo hijoIzquierdo = pila.pop();// el segundo va hacer el nodo izquierdo
-                nodoOperador.setHijoIzquierdo(hijoIzquierdo);//aqui se establecen
-                nodoOperador.setHijoDerecho(hijoDerecho);
-                pila.push(nodoOperador);
+        String expresionPosfija = convertirAPosfija(expresionMatematica);
+        Stack<Nodo> pila = new Stack<>();
+        boolean ultimoFueOperador = true; //variable para encontrar el ultimo caracter y que sea negativo
+        String[] caracteresIndividuales = expresionPosfija.split(" ");//divide la expresion posfica en caracteres individuales separados " " y los almacena en un array de caracteres
+        for (String caracterIndividual : caracteresIndividuales) {//recorre sobre cada caracter
+            if (!caracterIndividual.isEmpty()) {//comprueba que el ultimo caracter es numero negativo o no
+                //luego se agrega el nodo con el caracter y se cambia el estado de la variable ultimoFueOperador si el dato no fue negativo
+                if (Character.isDigit(caracterIndividual.charAt(0)) || (caracterIndividual.startsWith("-") && caracterIndividual.length() > 1)) {
+                    Nodo nodo = new Nodo(caracterIndividual);
+                    pila.push(nodo);
+                    ultimoFueOperador = false;
+                } else if (caracterIndividual.equals("-")) {//Si el ultimo caracter fue "-" lo agrega a la pila como un solo nodo junto con el numero que lo acompaña
+                    if (ultimoFueOperador) {
+                        pila.push(new Nodo("-")); // 
+                    } else {
+                        Nodo nodoOperador = new Nodo("-");
+                        Nodo hijoDerecho = pila.pop();
+                        Nodo hijoIzquierdo = pila.pop();
+                        nodoOperador.setHijoIzquierdo(hijoIzquierdo);
+                        nodoOperador.setHijoDerecho(hijoDerecho);
+                        pila.push(nodoOperador);
+                    }
+                    ultimoFueOperador = true;//cambia nuevamentne el valor de la variable a true porque el ultimo caracter si fue negativo
+                } else {
+                    Nodo nodoOperador = new Nodo(caracterIndividual);
+                    Nodo hijoDerecho = pila.pop();
+                    Nodo hijoIzquierdo = pila.pop();
+                    nodoOperador.setHijoIzquierdo(hijoIzquierdo);
+                    nodoOperador.setHijoDerecho(hijoDerecho);
+                    pila.push(nodoOperador);
+                    ultimoFueOperador = true;
+                }
             }
         }
         this.inicio = pila.pop();
     }
     
     private String convertirAPosfija(String expresionMatematica) {
-        //StringBuilder compara cadenas dinamicamente y en la variable posfija guarda la cadena inversa polaca
         StringBuilder posfija = new StringBuilder();
-        Stack<Character> operadores = new Stack<>(); // pila que almacena los operadores
-        for (int i = 0; i < expresionMatematica.length(); i++) { // recorre la expresion matematica
-            char caracter = expresionMatematica.charAt(i); // obtiene los caracter por caracter de la expresion matematica
-            if (Character.isDigit(caracter)) { //si caracter es digito
-                posfija.append(caracter); // Agrega el dígito directamente o variable a la expresión posfija que es la cadena polaca
-            } else if (caracter == '(') { // Si es un paréntesis izquierdo, lo apila en la pila de operadores hasta encontrar su correspondiente dreecho.
+        Stack<Character> operadores = new Stack<>();
+        boolean ultimoFueOperador = true;
+        for (int i = 0; i < expresionMatematica.length(); i++) {
+            char caracter = expresionMatematica.charAt(i);
+            if (Character.isDigit(caracter) || (caracter == '-' && ultimoFueOperador)) {
+                if (caracter == '-') {
+                    posfija.append(caracter);
+                    i++;
+                    caracter = expresionMatematica.charAt(i);
+                    while (i < expresionMatematica.length() && Character.isDigit(caracter)) {
+                        posfija.append(caracter);
+                        i++;
+                        if (i < expresionMatematica.length())
+                            caracter = expresionMatematica.charAt(i);
+                    }
+                    posfija.append(" ");
+                    i--;
+                } else {
+                    posfija.append(caracter).append(" ");
+                }
+                ultimoFueOperador = false;
+            } else if (caracter == '(') {
                 operadores.push(caracter);
-            } else if (caracter == ')') { // Si es un paréntesis derecho, desapila operadores hasta encontrar el izquierdo correspondiente.
-                while (!operadores.isEmpty() && operadores.peek() != '(') { //mientras la pila de operadores sea diferente de limpio y operadores.peek osea el primer parantesis de la pila sea diferente de izquierdo
-                    posfija.append(operadores.pop());
+                ultimoFueOperador = true;
+            } else if (caracter == ')') {
+                while (!operadores.isEmpty() && operadores.peek() != '(') {
+                    posfija.append(operadores.pop()).append(" ");
                 }
-                operadores.pop(); // Elimina el paréntesis izquierdo de la pila.
-            } else { // Si es un operador, desapila operadores de mayor o igual precedencia y los agrega a la expresión posfija.
-                while (!operadores.isEmpty() && jerarquia(operadores.peek()) >= jerarquia(caracter)) {
-                    posfija.append(operadores.pop());
+                operadores.pop();
+                ultimoFueOperador = false;
+            } else {
+                int prioridad = jerarquia(caracter);
+
+                while (!operadores.isEmpty() && jerarquia(operadores.peek()) >= prioridad) {
+                    posfija.append(operadores.pop()).append(" ");
                 }
-                operadores.push(caracter); // Agrega el operador actual a la pila.
+                operadores.push(caracter);
+                ultimoFueOperador = true;
             }
         }
-        while (!operadores.isEmpty()) { // Desapila los operadores restantes y los agrega a la expresión posfija la cul es la inversa polaca
-            posfija.append(operadores.pop());
+
+        while (!operadores.isEmpty()) {
+            posfija.append(operadores.pop()).append(" ");
         }
-        return posfija.toString(); // Devuelve la expresión posfija como una cadena.
+        return posfija.toString().trim();
     }
-    
+
     private int jerarquia(char operador) { // metodo para determinar la jerarquia de un operador agrupando los por niveles .
         switch (operador) {
             case '+':
@@ -75,7 +115,6 @@ public class ConstruirArbolExpresion implements Metodos {
                 return 1;
             case '*':
             case '/':
-             
                 return 2;
             case '^':
             //case '√': No funciona como simbolo de raiz F :c
@@ -112,35 +151,30 @@ public class ConstruirArbolExpresion implements Metodos {
     @Override//IRD
     public void mostrarInOrden() {
         recorrerInorden(inicio);
-
     }
 
     @Override//RID
     public void mostrarPreOrden() {
         recorrerPreorden(inicio);
-
     }
 
     @Override//IDR
     public void mostrarPosOrden() {
         recorrerPosorden(inicio);
-
     }
     
     public double resolverExpresion() {
-        return resolverExpresion(inicio);
+        return resolverExpresion(this.inicio);
     }
-
+    
     private double resolverExpresion(Nodo nodo) {
         if (nodo == null)
             return 0;
-
-        if (Character.isDigit(nodo.getDato().charAt(0))) { // Si el nodo es un número, lo convierte a double y lo retorna.
+        if (Character.isDigit(nodo.getDato().charAt(0)) || (nodo.getDato().startsWith("-") && nodo.getDato().length() > 1)) {//startswith para verificar si la expresion incia con -
             return Double.parseDouble(nodo.getDato());
-        } else { // Si el nodo es un numero, realiza la operación correspondiente.
+        } else {
             double izquierdo = resolverExpresion(nodo.getHijoIzquierdo());
             double derecho = resolverExpresion(nodo.getHijoDerecho());
-
             switch (nodo.getDato().charAt(0)) {
                 case '+':
                     return izquierdo + derecho;
